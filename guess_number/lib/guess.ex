@@ -1,7 +1,7 @@
 defmodule Guess do
   use Application
 
-  def start(_,_) do
+  def start(_, _) do
     run()
     {:ok, self()}
   end
@@ -36,10 +36,17 @@ defmodule Guess do
 
   def get_range(level) do
     case level do
-      1 -> 1..10
-      2 -> 1..100
-      3 -> 1..1000
-      _ -> IO.puts("Invalid level!!!")
+      1 ->
+        1..10
+
+      2 ->
+        1..100
+
+      3 ->
+        1..1000
+
+      _ ->
+        IO.puts("Invalid level!!!")
         run()
     end
   end
@@ -67,21 +74,21 @@ defmodule Guess do
     show_score(count)
   end
 
-
   def show_score(guesses) when guesses > 6 do
     IO.puts("Better luck next time")
   end
 
   def show_score(guesses) do
-    {_, msg} =  %{1..1 => "You're a mind rider!",
-      2..4 => "Most impresive",
-      3..6 => "You can do better than that"}
+    {_, msg} =
+      %{
+        (1..1) => "You're a mind rider!",
+        (2..4) => "Most impresive",
+        (3..6) => "You can do better than that"
+      }
       |> Enum.find(fn {range, _} ->
         Enum.member?(range, guesses)
       end)
+
     IO.puts(msg)
   end
-
-
-
 end
